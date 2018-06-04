@@ -11,7 +11,7 @@
     must originate from 127.0.0.1:5000.
 '''
 
-from flask import Flask, flash, request, redirect, render_template, url_for, jsonify
+from flask import Flask, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 from rauth.service import OAuth2Service
@@ -24,17 +24,17 @@ from functools import wraps
 
 # Flask config
 SQLALCHEMY_DATABASE_URI = 'sqlite:///facebook.db'
-SECRET_KEY = '\xfb\x12\xdf\xa1@i\xd6>V\xc0\xbb\x8fp\x16#Z\x0b\x81\xeb\x16'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SECRET_KEY = 'secret_key'
 DEBUG = True
-FB_CLIENT_ID = '1933373966693046'
-FB_CLIENT_SECRET = 'e2d149a9e742f4f08dacc02304b9f042'
+FB_CLIENT_ID = 'FB_CLIENT_ID'
+FB_CLIENT_SECRET = 'FB_CLIENT_SECRET'
 AUTH_TOKEN_EXPIRY_DAYS = 1
 AUTH_TOKEN_EXPIRY_SECONDS = 20
 
 # Flask setup
 app = Flask(__name__, static_folder='static')
 app.config.from_object(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # rauth OAuth 2.0 service wrapper
